@@ -2,6 +2,7 @@
 import subprocess
 import os.path
 import sys
+import urllib
 from random import shuffle
 
 perl = subprocess.Popen(["which", "perl"],
@@ -36,8 +37,9 @@ def fetch_data():
         if os.path.exists(pfile.format(model)):
             print "{} already exists".format(pfile.format(model))
         else:
-            if not os.path.exists(os.path.dirname(pfile)): os.makedirs(os.path.dirname(pfile.format(model)))
-            urllib.urlretrieve(purl.format(model), pfile.format(model))
+            if not os.path.exists(os.path.dirname(pfile)):
+                os.makedirs(os.path.dirname(pfile.format(model)))
+                urllib.urlretrieve(purl.format(model), pfile.format(model))
             print "created file " + pfile.format(model)
 
         if os.path.exists(nfile.format(model)):
