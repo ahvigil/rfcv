@@ -9,6 +9,11 @@ perl = subprocess.Popen(["which", "perl"],
                         .stdout\
                         .readline().strip()
 
+if not os.path.exists("./performance"):
+    os.makedirs("./performance")
+if not os.path.exists("./cache"):
+    os.makedirs("./cache")
+
 models = ["ASP_PROTEASE.4.ASP.OD1",
 "EF_HAND_1.1.ASP.OD1",
 "EF_HAND_1.1.ASP.OD2",
