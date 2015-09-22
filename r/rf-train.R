@@ -38,8 +38,19 @@ if(topn!=0){
     features <- 1:480
 }
 
-# Train RF model, large datasets will consume quite a bit of memroy.
-model <- randomForest(df[,features], y=df[,"class"], ntree=ntree, mtry=mtry)
+# Train RF model, large datasets will consume quite a bit of memory.
+# AV: Split large trees into smaller work units
+if(ntree<1500){
+    model <- randomForest(df[,features], y=df[,"class"], ntree=ntree, mtry=mtry)
+} else{
+    model <- randomForest(df[,features], y=df[,"class"], ntree=ntree, mtry=mtry)
+    n <- 500
+    while(model$ntree<ntree){
+        if(ntree-model$ntree<500) n <- ntree-model$ntree
+        model <- grow(model, n)
+    }
+}
+
 
 # Save R object to file, will read with load() later.
 save(model,file=model_file)
