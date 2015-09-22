@@ -43,8 +43,8 @@ if(topn!=0){
 if(ntree<1500){
     model <- randomForest(df[,features], y=df[,"class"], ntree=ntree, mtry=mtry)
 } else{
-    model <- randomForest(df[,features], y=df[,"class"], ntree=ntree, mtry=mtry)
     n <- 500
+    model <- randomForest(df[,features], y=df[,"class"], ntree=n, mtry=mtry)
     while(model$ntree<ntree){
         if(ntree-model$ntree<500) n <- ntree-model$ntree
         model <- grow(model, n)
