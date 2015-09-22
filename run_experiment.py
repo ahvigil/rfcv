@@ -10,6 +10,10 @@ perl = subprocess.Popen(["which", "perl"],
                         .stdout\
                         .readline().strip()
 
+ntree = 500
+if len(sys.argv) > 1:
+    ntree = sys.argv[1]
+
 if not os.path.exists("./performance"):
     os.makedirs("./performance")
 if not os.path.exists("./cache"):
@@ -68,5 +72,4 @@ for model in models:
         shuffle(mtrys)
         for mtry in mtrys:
             if mtry>topn: continue
-            for ntree in [2000]:
-                subprocess.call([perl, "./rf-xval.pl", model, str(ntree), str(mtry), str(topn)])
+            subprocess.call([perl, "./rf-xval.pl", model, str(ntree), str(mtry), str(topn)])
