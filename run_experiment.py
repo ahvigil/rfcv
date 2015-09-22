@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env ipython
 import subprocess
 import os.path
 import sys
@@ -12,7 +12,7 @@ perl = subprocess.Popen(["which", "perl"],
 
 ntree = 500
 if len(sys.argv) > 1:
-    ntree = sys.argv[1]
+    ntree = int(sys.argv[-1])
 
 if not os.path.exists("./performance"):
     os.makedirs("./performance")
