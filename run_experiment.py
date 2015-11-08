@@ -66,6 +66,7 @@ shuffle(models)
 
 for model in models:
     topns=range(2,21)
+    topns.append(480)
     shuffle(topns)
     for topn in topns:
         mtrys=range(2,topn+1)
