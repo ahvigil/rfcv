@@ -65,11 +65,7 @@ fetch_data()
 shuffle(models)
 
 for model in models:
-    topns=range(2,21)
-    shuffle(topns)
-    for topn in topns:
-        mtrys=range(2,topn+1)
-        shuffle(mtrys)
-        for mtry in mtrys:
-            if mtry>topn: continue
-            subprocess.call([perl, "./rf-xval.pl", model, str(ntree), str(mtry), str(topn)])
+    mtrys=[5,10,20,30,40,50]
+    shuffle(mtrys)
+    for mtry in mtrys:
+        subprocess.call([perl, "./rf-xval.pl", model, str(ntree), str(mtry), "0"])
