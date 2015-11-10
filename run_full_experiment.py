@@ -1,9 +1,12 @@
 #!/usr/bin/env ipython
 import subprocess
 import os.path
+import os
 import sys
 import urllib
 from random import shuffle
+
+os.chdir(os.path.dirname(__file__))
 
 perl = subprocess.Popen(["which", "perl"],
                         stdout=subprocess.PIPE)\
@@ -32,10 +35,8 @@ models = ["ASP_PROTEASE.4.ASP.OD1",
 def fetch_data():
     purl = "http://feature.stanford.edu/webfeature/models/{0}/{0}.pos.ff.gz"
     nurl = "http://feature.stanford.edu/webfeature/models/{0}/{0}.neg.ff.gz"
-    iurl = "https://storage.googleapis.com/thesis-993.appspot.com/data/misc/{0}.importance"
     pfile = os.path.join(os.getcwd(), "data", "{0}", "{0}.pos.ff.gz")
     nfile = os.path.join(os.getcwd(), "data", "{0}", "{0}.neg.ff.gz")
-    ifile = os.path.join(os.getcwd(), "data", "{0}", "{0}.importance")
 
     for model in models:
         if os.path.exists(pfile.format(model)):
@@ -51,12 +52,6 @@ def fetch_data():
         else:
             urllib.urlretrieve(nurl.format(model), nfile.format(model))
             print "created file " + nfile.format(model)
-
-        if os.path.exists(ifile.format(model)):
-            print "{} already exists".format(ifile.format(model))
-        else:
-            urllib.urlretrieve(iurl.format(model), ifile.format(model))
-            print "created file " + ifile.format(model)
 
 fetch_data()
 
